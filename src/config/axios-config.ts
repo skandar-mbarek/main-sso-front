@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:5219/",
+    baseURL: "https://sso-back.onrender.com/",
     timeout: 3000,
 });
 
