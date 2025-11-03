@@ -11,6 +11,7 @@ axiosInstance.interceptors.request.use(async (req) => {
         if (token) {
             req.headers.Authorization = `Bearer ${token}`;
         }
+        req.withCredentials = true;
         return req;
     } catch (error) {
         console.log(error);
