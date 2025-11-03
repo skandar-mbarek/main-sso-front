@@ -5,8 +5,8 @@ import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 
 const LoginPage :React.FC=()=>{
 
-    const { clientId } = useParams<{ clientId: string }>();
-    const actualClientId = clientId || "default-client";
+    const { clientUrl } = useParams<{ clientUrl: string }>();
+    const actualClientUrl = clientUrl || "default-client";
 
     const loginMutation = useLogin();
 
@@ -20,7 +20,7 @@ const LoginPage :React.FC=()=>{
         loginMutation.mutate({
             email,
             password,
-            clientId:actualClientId
+            clientUrl: actualClientUrl,
         });
     };
 

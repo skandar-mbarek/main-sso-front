@@ -1,27 +1,21 @@
-import React, {useEffect, useState} from "react";
-import {useParams, useNavigate, useSearchParams} from "react-router-dom";
+import React, {useEffect} from "react";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import { useCallbackLogin } from "../hooks/use-callback-login";
-import {useLogin} from "../hooks/use-login";
 
 export const Authorize: React.FC = () => {
 
     const [searchParams] = useSearchParams();
-    const clientId = searchParams.get("clientId") ??"default-client"
+    const clientUrl = searchParams.get("clientUrl") ??"default-client"
 
     const navigate = useNavigate();
     const callbackLogin = useCallbackLogin();
 
     useEffect(() => {
-        if (!clientId) return;
+        if (!clientUrl) return;
 
-        const token = localStorage.getItem("token");
+        callbackLogin.mutate({ clientUrl: clientUrl });
 
-        if (token) {
-            callbackLogin.mutate({ clientId, token });
-        } else {
-            navigate(`/login/${clientId}`);
-        }
-    }, [clientId]);
+    }, [clientUrl]);
 
     return (
         <div

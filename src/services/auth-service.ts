@@ -3,24 +3,25 @@ import axiosInstance from "../config/axios-config";
 export interface LoginRequest{
     email: string;
     password: string;
-    clientId: string;
+    clientUrl: string;
 }
 
 export interface LoginResponse{
     redirectUrl: string;
-    token: string;
 }
 
 export interface CheckLoginReq {
-    clientId: string;
-    token:string;
+    clientUrl: string;
 }
 
 export const Login = async (credentials: LoginRequest):Promise<LoginResponse> => {
     try{
         const response = await axiosInstance.post<LoginResponse>(
             '/api/connect/login',
-            credentials
+            credentials,
+            {
+                withCredentials: true
+            }
         );
         return response.data;
     }catch (error) {
@@ -32,14 +33,14 @@ export const Login = async (credentials: LoginRequest):Promise<LoginResponse> =>
 export const CallbackLogin = async (request:CheckLoginReq):Promise<LoginResponse>=>{
     try{
         const response = await axiosInstance.post<LoginResponse>(
-            '/api/connect/callback',
+            '/api/connect/check-session',
             null,
             {
                 params:{
-                    clientId : request.clientId,
-                    token : request.token ,
-                }
-            }
+                    clientUrl : request.clientUrl,
+                },
+                withCredentials: true
+            },
         );
         return response.data;
     }catch (error) {

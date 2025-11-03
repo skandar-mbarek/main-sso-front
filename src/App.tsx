@@ -10,11 +10,10 @@ function App() {
   return (
       <div className="App">
           <Routes>
-              <Route path="/login/:clientId" element={<LoginPage />} />
+              <Route path="/login/:clientUrl" element={<LoginPage />} />
               <Route path="/" element={<Authorize />} />
           </Routes>
       </div>
   );
 }
-
 export default App;
